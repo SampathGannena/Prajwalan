@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="shortcut icon" type="x-icon" href="../img/ll_logo.png">
+    <link rel="stylesheet" href="stu_login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Student Login</h2>
+            <div class="form-row">
+                <div class="textbox">
+                    <input type="email" placeholder="Enter your email" class="input-field" id="email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="textbox">
+                    <input type="password" placeholder="Enter your password" class="input-field" id="password">
+                </div>
+            </div>
+            <button onclick="login()" class="btn">Login</button>
+            <p><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
+        </div>
+    </div>
+
+    <script>
+    async function login() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+
+    try {
+    const response = await fetch('http://localhost:5000/api/login', {  
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {  // Check for success flag in response data
+        alert('Login successful!');
+        window.location.href = '../stu_dash/home.html';  
+    } else if (data.message === 'Invalid password') {  // Specific error message for incorrect password
+        alert('Password is incorrect');  
+    } else {
+        alert(data.message || 'Invalid credentials');  // Generic error message
+    }
+} catch (error) {
+    console.error('Error:', error);
+    alert('Error connecting to the server');
+}
+
+}
+
+        async function forgotPassword() {
+            const email = prompt('Enter your email to reset your password:');
+            if (email) {
+                try {
+                    const response = await fetch('http://localhost:5000/forgot-password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.status === 200) {
+                        alert('Password reset instructions sent to your email.');
+                    } else {
+                        alert(data.message || 'Error processing request');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error connecting to the server');
+                }
+            } else {
+                alert('Email is required to reset password');
+            }
+        }
+    </script>
+</body>
+</html>

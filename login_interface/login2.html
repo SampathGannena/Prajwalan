@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Login</title>
+    <link rel="shortcut icon" type="x-icon" href="../img/ll_logo.png">
+    <link rel="stylesheet" href="ins_login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Instructor Login</h2>
+            <div class="form-row">
+                <div class="textbox">
+                    <!-- Input field for entering email -->
+                    <input type="email" placeholder="Enter your email" class="input-field" id="email">
+                </div>
+            </div>
+            <!-- Button to trigger OTP generation -->
+            <button onclick="generateOTP()" class="btn">Login</button>
+        </div>
+    </div>
+    
+    <script>
+        async function generateOTP() {
+            const email = document.getElementById('email').value;
+
+            // Check if the user entered an email
+            if (!email) {
+                alert('Please enter your email');
+                return;
+            }
+
+            try {
+                // Save email in localStorage for later use on OTP verification page
+                localStorage.setItem('email', email);
+
+                // Send the email to the backend to generate the OTP
+                const response = await fetch('http://localhost:5000/generate-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })  // Send email to backend
+                });
+
+                const data = await response.json();
+
+                if (response.status === 200) {
+                    // Notify the user that OTP has been sent
+                    alert('OTP sent to your email');
+                    
+                    // Redirect the user to the OTP verification page
+                    window.location.href = 'otp2.html';
+                } else {
+                    alert('Error generating OTP');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error connecting to the server');
+            }
+        }
+    </script>
+</body>
+</html>
