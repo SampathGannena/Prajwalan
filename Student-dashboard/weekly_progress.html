@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student - Weekly Progress</title>
+    <link rel="shortcut icon" type="x-icon" href="../img/ll_logo.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="weekly_progress.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="d-flex">
+    <div class="sidebar bg-dark p-3">
+        <div class="text-center mb-4 pt-2 ">
+            <img src="img/stu-01.jpg" alt="profile" class="mb-3 profile-pic"><br/>
+            <h3>Sahith</h3>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="home.html"><i class="fa-solid fa-house"></i>    Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="course_perf.html"><i class="fa-solid fa-book-open"></i>    Course Performance</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="weekly_progress.html"><i class="fas fa-chart-line"></i>    Weekly Progress</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="leaderboard.html"><i class="fas fa-trophy"></i>    Leaderboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="learning_path.html"><i class="fas fa-chalkboard-teacher"></i>    Learning Path</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="assignments.html"><i class="fas fa-clipboard icon"></i>    Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="queries.html"><i class="fas fa-comments icon"></i>    Queries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../login_interface/login_interface.html"><i class="fas fa-sign-out-alt icon"></i>    Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container py-5">
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 style="color: #b49018;">Weekly Progress</h1>
+                <div class="d-flex align-items-center">
+                    <!-- Profile Section -->
+                    <div class="ml-3">
+                        <img style="height: 50px; width: 50px;" src="img/ll_logo.png" alt="Instructor Logo" class="rounded-circle">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week Selection Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <label for="weekSelection" style="color: #b49018;">Select Week:</label>
+                    <select id="weekSelection" class="form-select" onchange="updateWeeklyProgress()">
+                        <option value="current">Current Week</option>
+                        <option value="week1">Week 1</option>
+                        <option value="week2">Week 2</option>
+                        <option value="week3">Week 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Average Time Spent Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h4 id="averageTime" style="color: #b49018;">Average Time Spent: 0 minutes</h4>
+                </div>
+            </div>
+    
+            <!-- Graph Section -->
+            <div class="row">
+                <div class="col-md-12">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Chart.js Script -->
+<script>
+    // Weekly data for different weeks in minutes (example data for 3 weeks)
+    const weeklyProgressData = {
+        current: [120, 180, 150, 200, 90, 160, 140], // Current week data
+        week1: [100, 140, 120, 180, 110, 130, 100],  // Week 1 data
+        week2: [110, 160, 130, 170, 80, 140, 90],   // Week 2 data
+        week3: [90, 150, 120, 140, 100, 110, 80]    // Week 3 data
+    };
+
+    let selectedWeek = 'current'; // Default to current week
+
+    // Function to calculate average and update the chart
+    function updateWeeklyProgress() {
+        // Get selected week
+        selectedWeek = document.getElementById('weekSelection').value;
+
+        // Get data for selected week
+        const data = weeklyProgressData[selectedWeek];
+
+        // Calculate the average time spent for the selected week
+        const totalMinutes = data.reduce((a, b) => a + b, 0);
+        const averageMinutes = totalMinutes / data.length;
+
+        // Update the average time display
+        document.getElementById('averageTime').innerText = `Average Time Spent: ${Math.round(averageMinutes)} minutes`;
+
+        // Update the chart with the selected week's data
+        progressChart.data.datasets[0].data = data;
+        progressChart.update();
+    }
+
+    // Initial chart setup with the current week's data
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    const progressChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Minutes Worked',
+                data: weeklyProgressData[selectedWeek], // Use current week data initially
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1,
+                borderRadius: 10,
+                barPercentage: 0.7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 240, // Set the maximum value to 240 minutes
+                    ticks: {
+                        stepSize: 30, // Step size of 30 minutes
+                        color: '#b49018'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#b49018'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#b49018'
+                    }
+                }
+            }
+        }
+    });
+
+    // Update chart when page loads
+    updateWeeklyProgress();
+</script>
+
+</body>
+</html>
