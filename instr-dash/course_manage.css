@@ -1,0 +1,51 @@
+/* Progress Bar */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+.bgd-dark {
+    background-color: #181d38;
+}
+/* Sidebar customizations */
+.sidebar {
+    height: 100vh;
+}
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+/* Main content area */
+.content {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+/* Progress bar styles */
+.progress-bar {
+    background-color: #b49018;
+}
+.progress {
+    height: 25px;
+}
+/* Card customizations */
+.card {
+    border-radius: 10px;
+}
+/* Background gradient */
+body {
+    background: linear-gradient(45deg, #1b1e21, #4e555b);
+}
+/* Animated upload icons */
+.upload-icon {
+    font-size: 50px;
+    color: #007bff;
+    animation: bounce 2s infinite;
+}
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

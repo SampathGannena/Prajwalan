@@ -1,0 +1,121 @@
+/* queries.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .dashboard-container {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    background-color: #fff;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .btn {
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Stats Grid */
+  .query-stats {
+    margin-bottom: 30px;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .stat-item {
+    background-color: #fafafa;
+    padding: 20px;
+    text-align: center;
+    border-left: 4px solid #4caf50;
+  }
+  
+  .stat-item h3 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Filter Options */
+  .filter-options {
+    margin-bottom: 30px;
+  }
+  
+  .filter-options input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+  }
+  
+  .filter {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .filter label {
+    margin-right: 10px;
+  }
+  
+  .filter select {
+    padding: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Notifications */
+  .notifications {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 4px solid #ff5722;
+  }
+  
+  

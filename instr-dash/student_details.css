@@ -1,0 +1,65 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+  }
+  
+  .dashboard-container {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .student-details {
+    margin-top: 20px;
+  }
+  
+  .student-details h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  td {
+    background-color: #fff;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  table th:nth-child(3), table td:nth-child(3) {
+    text-align: center;
+  }
+  
+  table th:nth-child(4), table td:nth-child(4) {
+    text-align: center;
+  }
+  
+  table th:nth-child(5), table td:nth-child(5) {
+    text-align: center;
+  }
+  
